@@ -68,7 +68,7 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define	MAX_STEP_CHANGE		32
 
 #define	MAX_VERTS_ON_POLY	10
-#define	MAX_MARK_POLYS		256
+#define	MAX_MARK_POLYS		8192		// amount of polygons for decals like blaster marks, increased from 256 because it's cool
 
 #define STAT_MINUS			10	// num frame for '-' stats digit
 

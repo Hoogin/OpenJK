@@ -244,11 +244,11 @@ void CG_AddMarks( void ) {
 		// still have it
 		next = mp->nextMark;
 
-		// see if it is time to completely remove it
-		if ( cg.time > mp->time + MARK_TOTAL_TIME ) {
-			CG_FreeMarkPoly( mp );
-			continue;
-		}
+		// see if it is time to completely remove it, commented out to not remove marks
+		//if ( cg.time > mp->time + MARK_TOTAL_TIME ) {
+		//	CG_FreeMarkPoly( mp );
+		//	continue;
+		//}
 
 		// fade out the energy bursts
 		if ( mp->markShader == cgs.media.phaserMarkShader )
@@ -269,6 +269,45 @@ void CG_AddMarks( void ) {
 			}
 		}
 
+		// Fade out the glow from the light saber burn marks and remove that glow mark when finished
+		if (mp->markShader == cgs.media.saberDamageGlowShader)
+		{
+			// fade all marks out with time
+			t = mp->time + MARK_TOTAL_TIME - cg.time;
+			if (t < MARK_FADE_TIME) {
+				fade = 255 * t / MARK_FADE_TIME;
+				if (mp->alphaFade) {
+					for (j = 0; j < mp->poly.numVerts; j++) {
+						mp->verts[j].modulate[3] = fade;
+					}
+				}
+				else
+				{
+					float f = (float)t / MARK_FADE_TIME;
+					for (j = 0; j < mp->poly.numVerts; j++) {
+						mp->verts[j].modulate[0] = mp->color[0] * f;
+						mp->verts[j].modulate[1] = mp->color[1] * f;
+						mp->verts[j].modulate[2] = mp->color[2] * f;
+					}
+				}
+			}
+			else
+			{
+				for (j = 0; j < mp->poly.numVerts; j++) {
+					mp->verts[j].modulate[0] = mp->color[0];
+					mp->verts[j].modulate[1] = mp->color[1];
+					mp->verts[j].modulate[2] = mp->color[2];
+				}
+			}
+
+			// Is it time to remove the glow and show the burn mark underneath
+			if (cg.time > mp->time + MARK_TOTAL_TIME) {
+				CG_FreeMarkPoly(mp);
+				continue;
+			}
+		}
+
+		/*	Don't fade out marks, this causes issues with the saber glow marks which is fixed with added code above
 		// fade all marks out with time
 		t = mp->time + MARK_TOTAL_TIME - cg.time;
 		if ( t < MARK_FADE_TIME ) {
@@ -296,7 +335,7 @@ void CG_AddMarks( void ) {
 				mp->verts[j].modulate[2] = mp->color[2];
 			}
 		}
-
+		*/
 
 		cgi_R_AddPolyToScene( mp->markShader, mp->poly.numVerts, mp->verts );
 	}

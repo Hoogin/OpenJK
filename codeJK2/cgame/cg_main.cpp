@@ -1358,6 +1358,7 @@ static void CG_RegisterGraphics( void ) {
 	cgs.media.scavMarkShader				= cgi_R_RegisterShader( "gfx/damage/burnmark4" );
 //	cgs.media.bulletmarksShader				= cgi_R_RegisterShader( "textures/decals/bulletmark4" );
 	cgs.media.rivetMarkShader				= cgi_R_RegisterShader( "gfx/damage/rivetmark" );
+	cgs.media.saberDamageGlowShader			= cgi_R_RegisterShader( "gfx/effects/saberDamageGlow" );	//added so we can control the glow effect																														  
 
 	// doing one shader just makes it look like a shell.  By using two shaders with different bulge offsets and different texture scales, it has a much more chaotic look
 	cgs.media.electricBodyShader			= cgi_R_RegisterShader( "gfx/misc/electric" );

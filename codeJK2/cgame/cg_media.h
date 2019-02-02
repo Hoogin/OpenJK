@@ -169,6 +169,7 @@ typedef struct {
 	qhandle_t	scavMarkShader;
 	qhandle_t	bulletmarksShader;
 	qhandle_t	rivetMarkShader;
+	qhandle_t	saberDamageGlowShader;		// added so we can sort the decals and control the saber wall mark glow			 
 
 	qhandle_t	shadowMarkShader;
 	qhandle_t	wakeMarkShader;
