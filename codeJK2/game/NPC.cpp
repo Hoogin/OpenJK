@@ -55,6 +55,7 @@ extern void NPC_CheckCharmed( void );
 
 extern cvar_t	*g_dismemberment;
 extern cvar_t	*g_saberRealisticCombat;
+extern cvar_t	*g_corpseRemovalTime;							   
 
 //Local Variables
 // ai debug cvars
@@ -284,9 +285,14 @@ int BodyRemovalPadTime( gentity_t *ent )
 		break;
 	default:
 		// never go away
-	//	time = Q3_INFINITE;
-		// for now I'm making default 10000
-		time = 10000;
+		if ( g_corpseRemovalTime->integer <= 0 )
+		{
+			time = Q3_INFINITE;
+		}
+		else
+		{
+			time = g_corpseRemovalTime->integer*1000;
+		}
 		break;
 
 	}

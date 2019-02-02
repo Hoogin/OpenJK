@@ -165,6 +165,7 @@ cvar_t	*g_iscensored;
 
 cvar_t	*g_saberAutoBlocking;
 cvar_t	*g_saberRealisticCombat;
+cvar_t	*g_corpseRemovalTime;
 cvar_t	*g_saberMoveSpeed;
 cvar_t	*g_saberAnimSpeed;
 cvar_t	*g_saberAutoAim;
@@ -571,6 +572,8 @@ void G_InitCvars( void ) {
 	g_knockback = gi.cvar( "g_knockback", "1000", CVAR_CHEAT );
 	g_dismemberment = gi.cvar ( "g_dismemberment", "3", CVAR_ARCHIVE );//0 = none, 1 = arms and hands, 2 = legs, 3 = waist and head, 4 = mega dismemberment
 	g_dismemberProbabilities = gi.cvar ( "g_dismemberProbabilities", "1", CVAR_ARCHIVE );//0 = ignore probabilities, 1 = use probabilities
+	// for now I'm making default 10 seconds
+	g_corpseRemovalTime = gi.cvar ( "g_corpseRemovalTime", "10", CVAR_ARCHIVE );//number of seconds bodies stick around for, at least... 0 = never go away																																					   
 	g_synchSplitAnims = gi.cvar ( "g_synchSplitAnims", "1", 0 );
 
 	g_inactivity = gi.cvar ("g_inactivity", "0", 0);
